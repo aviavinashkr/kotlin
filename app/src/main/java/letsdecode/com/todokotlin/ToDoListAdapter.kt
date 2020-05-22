@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoListAdapter : RecyclerView.Adapter<ToDoViewHolder>() {
-    val todoLists: Array<String> =
-        arrayOf("Android Development", "Housework", "Errands", "Shopping")
+class ToDoListAdapter(var lists: ArrayList<TaskList>) : RecyclerView.Adapter<ToDoViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoViewHolder {
         var itemView: View
@@ -17,12 +16,18 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return todoLists.size
+        return lists.size
     }
 
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
-        holder.itemNumberTextView.text = (position + 0).toString()
-        holder.itemListTextView.text = (todoLists[position])
+        holder.itemNumberTextView.text = (position + 1).toString()
+        holder.itemListTextView.text = lists[position].name
+    }
+
+    fun addList(list: TaskList) {
+        lists.add(list)
+        notifyItemInserted(lists.size -1)
+
     }
 
 }
